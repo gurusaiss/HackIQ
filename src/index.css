@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #0A0F1E;
+    color: #f1f5f9;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; }
+
+  ::selection { background: #6366F1; color: #fff; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #111827; }
+  ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6366F1; }
+}
+
+@layer components {
+  .card {
+    background-color: #111827;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.75rem;
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+    border-color: rgba(99,102,241,0.35);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #6366F1;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 0.625rem;
+    transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover { background: #4f46e5; box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: rgba(255,255,255,0.05);
+    color: #e2e8f0;
+    font-weight: 500;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.15s, border-color 0.15s;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+  .input {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.5rem;
+    color: #f1f5f9;
+    font-size: 0.9rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .input::placeholder { color: rgba(255,255,255,0.25); }
+  .input:focus { border-color: rgba(99,102,241,0.6); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+
+  .label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.375rem;
+    letter-spacing: 0.01em;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #818CF8, #6366F1, #A78BFA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-glow {
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(99,102,241,0.25) 0%, transparent 70%);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #1a2235 25%, #1e2a3f 50%, #1a2235 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: 0.375rem;
+  }
+}
+
+/* Range input */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6366F1;
+  border: 2px solid #0A0F1E;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.4);
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.3);
+}
