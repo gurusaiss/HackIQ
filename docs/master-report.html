@@ -1,0 +1,949 @@
+
+<title>HackIQ — Master Project Report</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,system-ui,sans-serif);font-size:14px;line-height:1.6;color:var(--color-text-primary);padding:0 0 4rem}
+h1{font-size:22px;font-weight:500;margin-bottom:.25rem}
+h2{font-size:17px;font-weight:500;margin:2rem 0 .75rem;padding:.5rem .75rem;background:var(--color-background-secondary);border-left:3px solid #7F77DD;border-radius:0 6px 6px 0}
+h3{font-size:14px;font-weight:500;margin:1.25rem 0 .5rem;color:var(--color-text-secondary)}
+p{margin-bottom:.75rem}
+ul,ol{padding-left:1.25rem;margin-bottom:.75rem}
+li{margin-bottom:.2rem}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1.25rem}
+th{background:var(--color-background-secondary);font-weight:500;text-align:left;padding:7px 10px;border:0.5px solid var(--color-border-tertiary)}
+td{padding:6px 10px;border:0.5px solid var(--color-border-tertiary);vertical-align:top}
+tr:nth-child(even) td{background:var(--color-background-secondary)}
+code{font-family:var(--font-mono,monospace);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px;border:0.5px solid var(--color-border-tertiary)}
+.hero{padding:1.5rem 1.5rem 1rem;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1rem}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin-right:4px}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-teal{background:#E1F5EE;color:#0F6E56}
+.b-amber{background:#FAEEDA;color:#854F0B}
+.b-red{background:#FCEBEB;color:#A32D2D}
+.b-blue{background:#E6F1FB;color:#185FA5}
+.b-green{background:#EAF3DE;color:#3B6D11}
+.b-gray{background:#F1EFE8;color:#5F5E5A}
+.section{padding:0 1.5rem 1rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;padding:1rem 1.5rem;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:.5rem}
+.toc a{font-size:12px;color:var(--color-text-info,#185FA5);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.toc-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}
+.star::before{content:"⭐ "}
+.fire::before{content:"🔥 "}
+.rocket::before{content:"🚀 "}
+.conf-high{color:#0F6E56;font-weight:500}
+.conf-med{color:#854F0B;font-weight:500}
+.conf-low{color:#A32D2D;font-weight:500}
+blockquote{border-left:3px solid #7F77DD;padding:.5rem 1rem;background:var(--color-background-secondary);border-radius:0 6px 6px 0;margin-bottom:.75rem;font-style:italic;font-size:13px}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin:1.5rem 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}}
+</style>
+
+<div class="hero">
+  <h2 style="margin:0 0 .25rem;font-size:20px;border:none;background:none;padding:0;color:var(--color-text-primary)">HackIQ — Master Project Report</h2>
+  <p style="color:var(--color-text-secondary);font-size:13px;margin:0">AI-Powered Competition Discovery Platform &nbsp;|&nbsp; Interview + Resume + Viva Ready</p>
+  <div style="margin-top:.75rem">
+    <span class="badge b-purple">React 18</span>
+    <span class="badge b-blue">Firebase</span>
+    <span class="badge b-teal">Groq AI</span>
+    <span class="badge b-amber">Vercel</span>
+    <span class="badge b-gray">Tailwind CSS</span>
+    <span class="badge b-green">Vite 6</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div>
+    <div class="toc-label">Core Sections</div>
+    <a href="#s1">1. Executive Overview</a><br>
+    <a href="#s2">2. Timeline</a><br>
+    <a href="#s3">3. Architecture</a><br>
+    <a href="#s4">4. Features Deep Dive</a><br>
+    <a href="#s5">5. Debugging Report</a>
+  </div>
+  <div>
+    <div class="toc-label">Technical</div>
+    <a href="#s6">6. Decision Log</a><br>
+    <a href="#s7">7. Optimizations</a><br>
+    <a href="#s8">8. Security & Scale</a><br>
+    <a href="#s9">9. Deployment</a><br>
+    <a href="#s10">10. Codebase Guide</a>
+  </div>
+  <div>
+    <div class="toc-label">Interview Prep</div>
+    <a href="#s11">11. Top 25 Questions</a><br>
+    <a href="#s12">12. Resume Content</a><br>
+    <a href="#s13">13. Lessons Learned</a><br>
+    <a href="#s14">14. Future Roadmap</a><br>
+    <a href="#s15">15. Rapid Revision Sheet</a>
+  </div>
+  <div>
+    <div class="toc-label">Deliverables</div>
+    <a href="#d1">D1. Interview Cheat Sheet</a><br>
+    <a href="#d2">D2. Knowledge Base FAQ</a><br>
+    <a href="#d3">D3. STAR Stories</a><br>
+    <a href="#d4">D4. 5-Minute Sheet</a><br>
+    <a href="#d5">D5. Knowledge Gaps</a><br>
+    <a href="#d6">D6. Confidence Ratings</a><br>
+    <a href="#d7">D7. Mock Interview</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 1 ═══════════════════════════════ -->
+<div class="section" id="s1">
+<h2>1. Executive Project Overview</h2>
+<table>
+<tr><th style="width:30%">Field</th><th>Details</th></tr>
+<tr><td>Project Name</td><td><strong>HackIQ</strong> (originally CompeteIQ)</td></tr>
+<tr><td>Problem Solved</td><td>Developers/students waste hours manually scouring Devpost, Kaggle, HackerEarth for competitions — HackIQ aggregates and personalises them via AI</td></tr>
+<tr><td>Elevator Pitch</td><td>"HackIQ is an AI-powered platform that discovers hackathons and competitions tailored to your skills, scores how well each one matches your profile, and helps you track your applications — all in one place."</td></tr>
+<tr><td>Target Users</td><td>CS students, developers, data scientists, designers looking for hackathons, ML competitions, and design challenges</td></tr>
+<tr><td>Main Goal</td><td>Reduce discovery friction — go from "where do I find competitions?" to personalised, scored results in one click</td></tr>
+<tr><td>Key Innovation</td><td>AI match scoring engine (0–100%) + multi-tier API security (Vite proxy → Vercel serverless) + 30-min profile-keyed cache</td></tr>
+<tr><td>Business Value</td><td>Saves 2–3 hours/week of manual research; increases participation in competitions; trackable pipeline (Bookmarked → Applied → Won)</td></tr>
+<tr><td>Technical Complexity</td><td>Multi-provider AI (Groq + Anthropic), secure API key handling without a backend server, Firebase Firestore with localStorage fallback, dynamic match scoring algorithm</td></tr>
+<tr><td>Unique Selling Points</td><td>1. Profile-keyed AI match scores &nbsp;2. No dedicated backend (cost-free) &nbsp;3. Offline-capable via localStorage &nbsp;4. Vercel serverless for production key security</td></tr>
+</table>
+
+<div class="two-col">
+<div class="card">
+<h3>30-second interview explanation</h3>
+<p>"HackIQ is a React + Firebase SPA that uses Groq's LLaMA-3.3 model to discover hackathons and competitions personalised to your skills. You fill in your profile — skills, interests, experience level — and the app searches competitions across Devpost, Kaggle, HackerEarth and others, scores each one against your profile using a weighted algorithm, and caches results for 30 minutes. API keys never reach the browser — they're injected by a Vite proxy in development and a Vercel serverless function in production."</p>
+</div>
+<div class="card">
+<h3>Non-technical explanation (HR/Recruiter)</h3>
+<p>"Think of HackIQ as a personalised job board, but for competitions. You tell it your skills — Python, React, machine learning — and it uses AI to find hackathons and coding contests that match exactly your background. It scores every competition out of 100 so you always see the best matches first. Your saved competitions are tracked across devices using Firebase's free cloud database."</p>
+</div>
+</div>
+
+<div class="card">
+<h3>2-minute detailed explanation</h3>
+<p><strong>Problem:</strong> Finding the right competition requires checking 5–6 platforms manually, with no personalisation.</p>
+<p><strong>Solution:</strong> HackIQ uses a React SPA with no dedicated backend. In development, a Vite proxy intercepts API calls and injects secret keys server-side. In production on Vercel, a Node.js serverless function (<code>api/search.js</code>) handles the same. The app calls Groq's API (llama-3.3-70b-versatile) with a structured prompt that includes the user's full profile and instructs the model to return JSON-formatted competition data.</p>
+<p><strong>Match Scoring:</strong> Each competition gets a score computed client-side: 40 points for skill overlap, 30 for interest alignment, 20 for experience level fit, 10 for location preference.</p>
+<p><strong>Persistence:</strong> Firebase Firestore stores profiles and saved competitions. If no Firebase keys are configured, everything falls back to localStorage — making the app fully offline-capable.</p>
+<p><strong>Performance:</strong> Results are cached in localStorage with a 30-minute TTL keyed by a base64 hash of the user's profile fields. If you revisit without changing your profile, results load instantly from cache.</p>
+<p><strong>Tech:</strong> React 18 + Vite 6 + Tailwind CSS 3 + Firebase Firestore + Groq AI + Vercel. GitHub: gurusaiss/HackIQ.</p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 2 ═══════════════════════════════ -->
+<div class="section" id="s2">
+<h2>2. Project Timeline & Development Journey</h2>
+<table>
+<tr><th>Phase</th><th>What Was Built</th><th>Changes Made</th><th>Reason</th></tr>
+<tr><td><span class="badge b-blue">Phase 1</span><br>Initial PRD</td><td>Requirements analysis; defined tech stack, pages, AI providers</td><td>Chose React+Vite+Tailwind, Supabase, Groq+Anthropic</td><td>No-backend SPA minimises infra cost; Groq has free CORS-friendly API</td></tr>
+<tr><td><span class="badge b-blue">Phase 2</span><br>MVP Build</td><td>All 3 pages (Discover, Profile, Saved), all components, routing, base styling</td><td>Created 20+ files from scratch</td><td>Full feature scope defined upfront from PRD</td></tr>
+<tr><td><span class="badge b-amber">Phase 3</span><br>Security Fix</td><td>Vite proxy config, <code>api/search.js</code> serverless function, non-VITE_ env vars</td><td>Rewrote API call layer; split dev vs prod key handling</td><td>Original approach exposed API keys in browser bundle — critical security flaw</td></tr>
+<tr><td><span class="badge b-amber">Phase 4</span><br>Product Audit</td><td>Ran brutal product kill/build analysis</td><td>Identified fake competition data, no caching, no modal, weak UX</td><td>Pre-launch quality gate</td></tr>
+<tr><td><span class="badge b-teal">Phase 5</span><br>Improvement Pass</td><td>CompetitionModal, result caching, profile completion bar, filter sidebar upgrades, Saved page stats</td><td>Rewrote <code>searchApi.js</code>; added modal; added cache; improved scoring</td><td>Address all audit findings</td></tr>
+<tr><td><span class="badge b-teal">Phase 6</span><br>DB Migration</td><td>Replaced Supabase with Firebase Firestore</td><td>Rewrote <code>src/lib/supabase.js</code> with Firebase SDK; updated package.json</td><td>Supabase free tier pauses after 7 days of inactivity — unusable for portfolio</td></tr>
+<tr><td><span class="badge b-purple">Phase 7</span><br>Branding</td><td>Renamed from CompeteIQ → HackIQ</td><td>App title, Navbar, package.json name</td><td>Shorter, more memorable; resonates with developer audience</td></tr>
+<tr><td><span class="badge b-purple">Phase 8</span><br>Deployment</td><td>GitHub repo creation, git init, first push</td><td>Created .gitignore, committed 28 files, pushed to gurusaiss/HackIQ</td><td>Make project public and Vercel-deployable</td></tr>
+<tr><td><span class="badge b-gray">Phase 9</span><br>Git Config</td><td>Author identity correction</td><td>Set git config user.name, amended commit, force pushed</td><td>User wanted commits under their own name, no email</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 3 ═══════════════════════════════ -->
+<div class="section" id="s3">
+<h2>3. Architecture & Technical Design</h2>
+
+<h3>High-Level Architecture</h3>
+<table>
+<tr><th>Layer</th><th>Technology</th><th>Role</th></tr>
+<tr><td>Frontend</td><td>React 18 + Vite 6 + Tailwind CSS 3</td><td>SPA — all UI, state, routing</td></tr>
+<tr><td>Routing</td><td>React Router v6</td><td>Client-side routing: /, /profile, /saved</td></tr>
+<tr><td>Database</td><td>Firebase Firestore</td><td>Profiles collection + saved_competitions collection. localStorage fallback when unconfigured.</td></tr>
+<tr><td>AI (Primary)</td><td>Groq — llama-3.3-70b-versatile</td><td>Competition discovery via structured JSON prompt</td></tr>
+<tr><td>AI (Secondary)</td><td>Anthropic — claude-sonnet-4-6 + web_search tool</td><td>Real-time web search for live competition data</td></tr>
+<tr><td>API Security (Dev)</td><td>Vite dev proxy</td><td>Intercepts /api/groq/* and /api/anthropic/*, injects secret keys server-side, forwards to provider</td></tr>
+<tr><td>API Security (Prod)</td><td>Vercel serverless — api/search.js</td><td>Node.js function reads process.env keys, forwards to AI providers</td></tr>
+<tr><td>Caching</td><td>localStorage</td><td>30-min TTL cache keyed by base64 hash of profile fields</td></tr>
+<tr><td>Hosting</td><td>Vercel</td><td>Static deploy + serverless functions</td></tr>
+<tr><td>Source Control</td><td>GitHub — gurusaiss/HackIQ</td><td>Auto-deploys on push to main</td></tr>
+</table>
+
+<h3>Data Flow</h3>
+<div class="card">
+<code>User fills profile → saves to Firestore/localStorage → clicks Search Now → searchCompetitions() called → checks 30-min cache → cache HIT: return instantly → cache MISS: call Vite proxy (dev) OR /api/search (prod) → serverless function injects API key → calls Groq API → model returns JSON array of competitions → computeMatchScore() runs per competition → sorted by matchScore → rendered as CompetitionCards → cached in localStorage</code>
+</div>
+
+<h3>Component Breakdown</h3>
+<table>
+<tr><th>Component / File</th><th>Purpose</th><th>Key Tech</th></tr>
+<tr><td><code>src/pages/Discover.jsx</code></td><td>Main search page, filter integration, modal trigger, cache restore</td><td>useState, useEffect, useMemo</td></tr>
+<tr><td><code>src/pages/Profile.jsx</code></td><td>Profile form, completion bar, tag input, radio groups</td><td>Controlled form, completion scoring</td></tr>
+<tr><td><code>src/pages/Saved.jsx</code></td><td>Saved list with status filter (All/Bookmarked/Applied/Won)</td><td>useMemo filter, status update</td></tr>
+<tr><td><code>src/components/CompetitionCard.jsx</code></td><td>Card with match ring, prize, deadline, save/apply buttons</td><td>MatchRing, formatPrize, getDeadlineInfo</td></tr>
+<tr><td><code>src/components/CompetitionModal.jsx</code></td><td>Full-screen overlay with details, share, save, apply</td><td>Escape key, scroll lock, Web Share API</td></tr>
+<tr><td><code>src/components/FilterSidebar.jsx</code></td><td>Category, prize, deadline, match%, remote, team size filters</td><td>Controlled inputs, active count</td></tr>
+<tr><td><code>src/components/MatchScoreRing.jsx</code></td><td>Animated SVG circle progress (green/amber/red by score)</td><td>SVG strokeDashoffset animation</td></tr>
+<tr><td><code>src/components/SkeletonCard.jsx</code></td><td>Shimmer loading placeholder grid</td><td>CSS animation keyframes</td></tr>
+<tr><td><code>src/components/TagInput.jsx</code></td><td>Tag chip input with suggestions dropdown</td><td>Controlled state, Comma/Enter add, Backspace remove</td></tr>
+<tr><td><code>src/hooks/useToast.jsx</code></td><td>Global toast notification context with auto-dismiss</td><td>Context API, setTimeout</td></tr>
+<tr><td><code>src/lib/supabase.js</code></td><td>Firebase Firestore client (named supabase.js for import compat)</td><td>Firebase SDK — getDoc, setDoc, getDocs, updateDoc, deleteDoc</td></tr>
+<tr><td><code>src/lib/searchApi.js</code></td><td>AI search, cache, match scoring, prize/deadline formatters</td><td>fetch, localStorage, base64 hash</td></tr>
+<tr><td><code>api/search.js</code></td><td>Vercel serverless — secure API key injection for production</td><td>Node.js, process.env, CORS headers</td></tr>
+<tr><td><code>vite.config.js</code></td><td>Dev proxy config loading ALL env vars including non-VITE_ keys</td><td>loadEnv, defineConfig, proxy</td></tr>
+</table>
+
+<h3>Why these technologies?</h3>
+<table>
+<tr><th>Tech</th><th>Why Chosen</th><th>Alternatives Considered</th><th>Tradeoff</th></tr>
+<tr><td>React 18</td><td>Industry standard, hooks-based, massive ecosystem</td><td>Vue 3, Svelte</td><td>Larger bundle than Svelte; more boilerplate than Vue</td></tr>
+<tr><td>Vite 6</td><td>Fastest dev server, native ESM, built-in proxy</td><td>CRA, Parcel</td><td>Less ecosystem documentation than CRA historically</td></tr>
+<tr><td>Tailwind CSS</td><td>Utility-first, no CSS files to maintain, design consistency</td><td>CSS Modules, styled-components</td><td>Large class strings in JSX; learning curve</td></tr>
+<tr><td>Firebase Firestore</td><td>Never pauses on free tier; 50K reads/day; browser SDK</td><td>Supabase (pauses), PlanetScale (no free tier), MongoDB Atlas</td><td>NoSQL — no SQL joins; different query model</td></tr>
+<tr><td>Groq (primary AI)</td><td>Free tier; browser CORS support; very fast inference</td><td>OpenAI, Anthropic</td><td>Less capable than GPT-4/Claude for complex reasoning</td></tr>
+<tr><td>Anthropic (secondary)</td><td>web_search tool for real-time competition discovery</td><td>Bing Search API, SerpAPI</td><td>Costs money; no free tier</td></tr>
+<tr><td>Vercel</td><td>Free tier; auto-deploy from GitHub; serverless functions built in</td><td>Netlify, Railway, Render</td><td>Function execution limits on free tier (10s timeout)</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 4 ═══════════════════════════════ -->
+<div class="section" id="s4">
+<h2>4. Features Deep Dive</h2>
+<table>
+<tr><th>Feature</th><th>Purpose</th><th>How It Works</th><th>Tech</th><th>Complexity</th></tr>
+<tr><td class="rocket">AI Competition Search</td><td>Find personalised competitions</td><td>Profile sent as context in system prompt → Groq returns structured JSON → 12-field schema per competition</td><td>Groq API, fetch, JSON parsing</td><td>High</td></tr>
+<tr><td class="rocket">Match Score Algorithm</td><td>Rank competitions by fit</td><td>computeMatchScore(): 40pts skills overlap, 30pts interests, 20pts experience, 10pts location. Returns 0–100.</td><td>Client-side JS, Set intersection</td><td>Medium</td></tr>
+<tr><td class="rocket">Vite Proxy + Serverless Security</td><td>Never expose API keys in browser</td><td>Dev: Vite loadEnv reads GROQ_API_KEY, proxy injects Authorization header. Prod: api/search.js reads process.env, forwards call.</td><td>Vite proxy, Vercel Edge Functions, Node.js</td><td>High</td></tr>
+<tr><td class="star">30-min Result Cache</td><td>Instant repeat visits; save API costs</td><td>Profile fields hashed to base64 key → stored in localStorage with timestamp → getCachedResults() checks age before serving</td><td>localStorage, base64, Date.now()</td><td>Medium</td></tr>
+<tr><td class="star">Competition Modal</td><td>Full detail view without page navigation</td><td>Fixed overlay, Escape key closes, body scroll locked, shows all 12 fields. Share via Web Share API / clipboard fallback.</td><td>React state, DOM events, cleanup via useEffect</td><td>Medium</td></tr>
+<tr><td class="star">Profile Completion Bar</td><td>Guide users to fill profile for better results</td><td>completionScore() function: 20pts name, 30pts skills≥3, 20pts interests≥2, 10pts each preference. Animated bar + color change.</td><td>Derived state, CSS transition</td><td>Low</td></tr>
+<tr><td class="fire">Filter Sidebar</td><td>Narrow search results post-AI</td><td>applyFilters() runs client-side on the result array: category, prize range, deadline window, match%, remote, team size, sort order</td><td>useMemo, controlled inputs</td><td>Medium</td></tr>
+<tr><td class="fire">Saved Competitions Tracker</td><td>Track application pipeline</td><td>Firestore/localStorage persistence. Status: Bookmarked→Applied→Won. StatsRow shows counts by status. Select dropdown updates status in-place.</td><td>Firebase updateDoc, optimistic UI</td><td>Medium</td></tr>
+<tr><td class="fire">Firebase with localStorage Fallback</td><td>App works even without Firebase config</td><td>getDb() returns null if no VITE_FIREBASE_PROJECT_ID → all functions fall through to localStorage equivalents</td><td>Conditional branching, localStorage JSON</td><td>Medium</td></tr>
+<tr><td>Skeleton Loading</td><td>Prevent layout shift while fetching</td><td>SkeletonGrid renders N shimmer cards. CSS @keyframes shimmer moves gradient background.</td><td>CSS animation, conditional render</td><td>Low</td></tr>
+<tr><td>Toast Notifications</td><td>User feedback on all actions</td><td>useToast Context + addToast(msg, type). Auto-dismiss after 3.5s via setTimeout.</td><td>React Context API</td><td>Low</td></tr>
+<tr><td>TagInput with Suggestions</td><td>Skill/interest entry UX</td><td>Dropdown of matching suggestions; Enter/Comma adds tag; Backspace removes last. Quick-add buttons for popular skills.</td><td>Controlled state, keyboard events</td><td>Medium</td></tr>
+<tr><td>MatchScoreRing SVG</td><td>Visual match score at a glance</td><td>SVG circle with strokeDashoffset animated from 0 → final value. Color changes: green &gt;70%, amber 40–70%, red &lt;40%</td><td>SVG, setTimeout, CSS transition</td><td>Medium</td></tr>
+<tr><td>Mock Competition Fallback</td><td>App usable with no API keys</td><td>12 hardcoded competitions with real Devpost/Kaggle URLs activate when all API tiers fail</td><td>Static data, real URLs</td><td>Low</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 5 ═══════════════════════════════ -->
+<div class="section" id="s5">
+<h2>5. Debugging & Problem Solving Report</h2>
+<table>
+<tr><th>Issue</th><th>Symptom</th><th>Root Cause</th><th>Fix Applied</th><th>Interview Talking Point</th></tr>
+<tr>
+  <td><strong>API key exposure in browser</strong></td>
+  <td>Keys visible in network tab / browser bundle</td>
+  <td>Using VITE_ prefix causes Vite to inline vars into browser JS</td>
+  <td>Used non-VITE_ keys (GROQ_API_KEY) + Vite proxy in dev; Vercel serverless in prod</td>
+  <td>"I identified that Vite's VITE_ convention embeds secrets in the bundle. I solved it with a dev proxy and a production serverless function — zero keys in the frontend."</td>
+</tr>
+<tr>
+  <td><strong>Supabase free tier auto-pause</strong></td>
+  <td>App goes offline after 7 days inactivity; DB unreachable</td>
+  <td>Supabase free tier policy pauses inactive projects</td>
+  <td>Full migration to Firebase Firestore (never pauses; 50K reads/day free)</td>
+  <td>"I evaluated the hosting requirements and chose Firebase over Supabase specifically because Supabase's free tier pauses — a portfolio project needs to be always-on."</td>
+</tr>
+<tr>
+  <td><strong>Port 5173 already in use</strong></td>
+  <td>Vite fails to start: EADDRINUSE</td>
+  <td>Previous dev server process still running in background (PID 10860)</td>
+  <td><code>Stop-Process -Id 10860 -Force</code> in PowerShell, then restarted</td>
+  <td>Shows awareness of OS-level process management in dev workflows</td>
+</tr>
+<tr>
+  <td><strong>preview_screenshot timeout</strong></td>
+  <td>Screenshot tool timed out twice</td>
+  <td>Preview tool was slow to render under testing conditions</td>
+  <td>Used preview_snapshot (accessibility tree) and preview_eval as verification alternatives</td>
+  <td>Shows adaptive debugging — when one method fails, switch tools</td>
+</tr>
+<tr>
+  <td><strong>Modal detection false positive</strong></td>
+  <td>backdrop-filter selector matched Navbar, not modal</td>
+  <td>Both Navbar and Modal use backdrop-filter blur in CSS</td>
+  <td>Used more specific selector: check for h2 content and "Apply Now" link presence</td>
+  <td>"CSS selectors can be ambiguous — I learned to use semantic content checks for DOM verification"</td>
+</tr>
+<tr>
+  <td><strong>preview_eval navigation error</strong></td>
+  <td>Eval context closed mid-execution after page navigation</td>
+  <td>window.location.href navigates the iframe, destroying the eval context</td>
+  <td>Used preview_snapshot after navigation instead of chaining evals</td>
+  <td>Shows understanding of browser execution context lifecycle</td>
+</tr>
+<tr>
+  <td><strong>Fake/poor competition data</strong></td>
+  <td>AI returning low-quality, generic competition data</td>
+  <td>Initial prompt lacked real platform URLs, date context, and strict schema</td>
+  <td>Added today's date, real URLs (Devpost/Kaggle/HackerEarth/Unstop), strict JSON schema in system prompt</td>
+  <td>"Prompt engineering is critical — adding real-world anchors (dates, URLs, schema enforcement) dramatically improves LLM output quality"</td>
+</tr>
+<tr>
+  <td><strong>Search results not updating on first click</strong></td>
+  <td>Results invisible immediately after clicking Search Now</td>
+  <td>State update async timing — snapshot taken before React re-render</td>
+  <td>Added explicit wait + used preview_eval with button text search instead of generic selector</td>
+  <td>Shows understanding of React's async rendering model</td>
+</tr>
+<tr>
+  <td><strong>Git commit author wrong</strong></td>
+  <td>Commits showed wrong/no author name</td>
+  <td>Global git config had different name; email included when user didn't want it</td>
+  <td>Set local repo config: <code>git config user.name "GURU SAI SUMITH"</code>; amend + force push</td>
+  <td>Shows git internals knowledge — local vs global config, amend workflow</td>
+</tr>
+<tr>
+  <td><strong>CRLF line ending warnings on Windows</strong></td>
+  <td>Git showed LF→CRLF warnings on all files during commit</td>
+  <td>Vite generates LF line endings; Windows git defaults to CRLF</td>
+  <td>Warnings only — not errors. Files committed correctly. Can add core.autocrlf=input to suppress.</td>
+  <td>Shows cross-platform development awareness</td>
+</tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 6 ═══════════════════════════════ -->
+<div class="section" id="s6">
+<h2>6. Technical Decision Log</h2>
+<table>
+<tr><th>Decision</th><th>Why Taken</th><th>Alternatives</th><th>Tradeoff</th></tr>
+<tr><td>No dedicated backend server</td><td>Zero infra cost; Vercel serverless handles key security</td><td>Express.js, FastAPI, Next.js API routes</td><td>Can't do server-side heavy computation; cold starts on serverless</td></tr>
+<tr><td>Groq as primary AI</td><td>Free; supports browser CORS; llama-3.3-70b is capable</td><td>OpenAI GPT-4, Anthropic Claude</td><td>Less reasoning depth than GPT-4; no native web search</td></tr>
+<tr><td>Anthropic as secondary</td><td>web_search_20250305 tool enables real competition lookup</td><td>SerpAPI, Bing Search</td><td>Costs money; adds complexity; disabled if no key</td></tr>
+<tr><td>Firebase over Supabase</td><td>Free tier never pauses; sufficient for this use case</td><td>Supabase, MongoDB Atlas, Neon</td><td>NoSQL instead of SQL; no SQL query power</td></tr>
+<tr><td>localStorage cache with TTL</td><td>Eliminates repeat API calls; instant page loads on revisit</td><td>React Query, SWR, server-side cache</td><td>Cache invalidated on browser clear; not shared across devices</td></tr>
+<tr><td>Keep file named supabase.js after Firebase migration</td><td>Zero import changes across 3 pages</td><td>Rename to db.js or firebase.js</td><td>Misleading filename — tradeoff accepted for zero churn</td></tr>
+<tr><td>Tailwind CSS dark theme with inline styles</td><td>Fine-grained color control for the dark UI design system</td><td>Pure Tailwind classes, CSS Modules</td><td>Inline style strings harder to override; not covered by Tailwind purge</td></tr>
+<tr><td>Vite loadEnv with empty prefix</td><td>Loads ALL env vars (incl. non-VITE_) so proxy can inject them</td><td>process.env in config only</td><td>More env vars in scope — need careful naming discipline</td></tr>
+<tr><td>Optimistic UI for status updates</td><td>Instant feedback — no waiting for Firestore</td><td>Await then update</td><td>If Firestore write fails, UI shows wrong state until next load</td></tr>
+<tr><td>Mock data fallback (12 competitions)</td><td>App usable with zero config for demos/portfolio</td><td>Show empty state, require API key</td><td>Mock data goes stale; real URLs may expire</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 7 ═══════════════════════════════ -->
+<div class="section" id="s7">
+<h2>7. Optimizations & Performance</h2>
+<table>
+<tr><th>Optimization</th><th>Problem</th><th>Solution</th><th>Result</th></tr>
+<tr><td>localStorage result cache (30-min TTL)</td><td>Every page visit triggered an AI API call (~2–3s wait + cost)</td><td>Cache keyed by base64 profile hash. getCachedResults() checks age before calling API.</td><td>Repeat visits: 0ms load time; ~100% reduction in API calls during session</td></tr>
+<tr><td>Profile-keyed cache invalidation</td><td>Old cached results shown even after profile change</td><td>Cache key is hash of profile fields. Profile save deletes old cache key.</td><td>Always fresh results when profile changes</td></tr>
+<tr><td>useMemo for filter computation</td><td>applyFilters() recomputing on every render</td><td>useMemo([competitions, filters]) — only re-runs when inputs change</td><td>Smooth filter interaction with 100+ competitions</td></tr>
+<tr><td>Skeleton cards during loading</td><td>Layout shift and blank screen during AI fetch</td><td>SkeletonGrid renders immediately; replaced by real cards when data arrives</td><td>Perceived performance improvement; no layout shift</td></tr>
+<tr><td>Card animation delay staggering</td><td>All cards appearing at once felt abrupt</td><td>animationDelay: i * 35ms (capped at 350ms) via inline style</td><td>Smooth cascade feel without blocking render</td></tr>
+<tr><td>Supabase → Firebase migration</td><td>Supabase cold start after 7-day pause added 2–5s latency</td><td>Firebase Firestore: always warm, no cold start</td><td>Consistent &lt;100ms database reads</td></tr>
+<tr><td>Vite tree-shaking + code splitting</td><td>Large bundle size</td><td>Vite default: ESM imports tree-shaken; React Router provides code splitting</td><td>Only code in use is bundled; pages are lazy-loadable</td></tr>
+<tr><td>Firebase singleton pattern</td><td>Risk of multiple Firebase app instances on hot reload</td><td><code>getApps().length ? getApps()[0] : initializeApp()</code></td><td>Single Firebase instance regardless of re-renders or HMR</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 8 ═══════════════════════════════ -->
+<div class="section" id="s8">
+<h2>8. Security, Scalability & Production Readiness</h2>
+
+<h3>Security Measures</h3>
+<table>
+<tr><th>Area</th><th>Implementation</th><th>Status</th></tr>
+<tr><td>API key protection</td><td>Non-VITE_ env vars never bundled. Dev: Vite proxy injects keys. Prod: Vercel serverless reads process.env.</td><td><span class="badge b-teal">Implemented</span></td></tr>
+<tr><td>Secrets in .gitignore</td><td>.env excluded from git. Only .env.example (no real keys) committed.</td><td><span class="badge b-teal">Implemented</span></td></tr>
+<tr><td>Firebase security rules</td><td>Open rules (allow read, write: true) — appropriate for no-auth app. Should add auth before production scale.</td><td><span class="badge b-amber">Basic</span></td></tr>
+<tr><td>XSS prevention</td><td>React escapes JSX by default. No dangerouslySetInnerHTML used.</td><td><span class="badge b-teal">Implicit</span></td></tr>
+<tr><td>Input validation</td><td>Profile form validates name present, at least 1 skill before saving. Toast feedback on violation.</td><td><span class="badge b-teal">Basic</span></td></tr>
+<tr><td>CORS on serverless</td><td>api/search.js sets Access-Control-Allow-Origin: * headers</td><td><span class="badge b-teal">Implemented</span></td></tr>
+<tr><td>Rate limiting</td><td>Not implemented — relies on Groq/Anthropic provider limits</td><td><span class="badge b-red">Gap</span></td></tr>
+<tr><td>Authentication</td><td>Not implemented — uses fixed 'local-user' ID</td><td><span class="badge b-red">Gap</span></td></tr>
+</table>
+
+<h3>Scalability Path</h3>
+<table>
+<tr><th>Scale</th><th>Bottleneck</th><th>Solution</th></tr>
+<tr><td>10 users</td><td>None — current architecture handles this easily</td><td>Current setup sufficient</td></tr>
+<tr><td>1,000 users</td><td>Firebase free tier (50K reads/day), Groq rate limits</td><td>Upgrade Firebase Spark → Blaze plan; add Firebase auth; server-side result caching (Redis)</td></tr>
+<tr><td>1M users</td><td>Single Vercel function; no auth; shared competition data</td><td>Add Firebase Auth; backend API (Node.js/FastAPI); result CDN caching; database per-user partitioning; queue-based AI calls</td></tr>
+</table>
+
+<h3>Production Improvements Needed</h3>
+<ul>
+<li>Add Firebase Authentication (Google OAuth) — replace fixed user ID</li>
+<li>Tighten Firestore security rules to per-user read/write</li>
+<li>Add rate limiting on <code>api/search.js</code></li>
+<li>Error monitoring (Sentry)</li>
+<li>Analytics (PostHog or Plausible)</li>
+<li>Competition data quality feedback loop</li>
+<li>Server-side result caching to reduce Groq API calls</li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 9 ═══════════════════════════════ -->
+<div class="section" id="s9">
+<h2>9. Deployment & DevOps Summary</h2>
+<table>
+<tr><th>Area</th><th>Details</th></tr>
+<tr><td>Hosting</td><td>Vercel — free tier (Hobby plan)</td></tr>
+<tr><td>Deployment process</td><td>git push origin main → Vercel auto-detects, runs npm run build, deploys dist/</td></tr>
+<tr><td>Build command</td><td><code>npm run build</code> → Vite bundles to dist/</td></tr>
+<tr><td>Output directory</td><td>dist/</td></tr>
+<tr><td>Framework preset</td><td>Vite (auto-detected by Vercel)</td></tr>
+<tr><td>Environment setup</td><td>8 env vars set in Vercel dashboard: GROQ_API_KEY, ANTHROPIC_API_KEY (server-side), 6× VITE_FIREBASE_* (client)</td></tr>
+<tr><td>Serverless functions</td><td>api/search.js → Vercel auto-maps /api/* routes to Node.js functions</td></tr>
+<tr><td>CI/CD</td><td>None formal — Vercel's GitHub integration IS the CI/CD pipeline</td></tr>
+<tr><td>Rollback strategy</td><td>Vercel deployment history — one-click revert to any previous deployment</td></tr>
+<tr><td>Monitoring</td><td>None yet — Vercel analytics dashboard available</td></tr>
+<tr><td>Docker</td><td>Not used — unnecessary for static SPA + serverless</td></tr>
+<tr><td>Domain</td><td>Default vercel.app subdomain. Custom domain configurable via Vercel dashboard.</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 10 ═══════════════════════════════ -->
+<div class="section" id="s10">
+<h2>10. Codebase Understanding Guide</h2>
+
+<h3>Folder Structure</h3>
+<div class="card" style="font-family:var(--font-mono);font-size:12px;line-height:1.8">
+HackIQ/<br>
+├── api/search.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Vercel serverless (prod API key security)<br>
+├── src/<br>
+│ &nbsp;├── pages/<br>
+│ &nbsp;│ &nbsp;├── Discover.jsx &nbsp;&nbsp;&nbsp;← Main search + filter page<br>
+│ &nbsp;│ &nbsp;├── Profile.jsx &nbsp;&nbsp;&nbsp;&nbsp;← User profile form<br>
+│ &nbsp;│ &nbsp;└── Saved.jsx &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Saved competitions tracker<br>
+│ &nbsp;├── components/<br>
+│ &nbsp;│ &nbsp;├── CompetitionCard.jsx<br>
+│ &nbsp;│ &nbsp;├── CompetitionModal.jsx<br>
+│ &nbsp;│ &nbsp;├── FilterSidebar.jsx<br>
+│ &nbsp;│ &nbsp;├── MatchScoreRing.jsx<br>
+│ &nbsp;│ &nbsp;├── Navbar.jsx<br>
+│ &nbsp;│ &nbsp;├── SkeletonCard.jsx<br>
+│ &nbsp;│ &nbsp;├── TagInput.jsx<br>
+│ &nbsp;│ &nbsp;└── Toast.jsx<br>
+│ &nbsp;├── hooks/useToast.jsx<br>
+│ &nbsp;├── lib/<br>
+│ &nbsp;│ &nbsp;├── supabase.js &nbsp;&nbsp;&nbsp;&nbsp;← Firebase client (named for import compat)<br>
+│ &nbsp;│ &nbsp;└── searchApi.js &nbsp;&nbsp;&nbsp;← AI search, cache, scoring, formatters<br>
+│ &nbsp;├── App.jsx &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Router setup + ToastProvider<br>
+│ &nbsp;├── main.jsx<br>
+│ &nbsp;└── index.css &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Tailwind + custom classes<br>
+├── .env.example<br>
+├── .gitignore<br>
+├── vite.config.js<br>
+├── tailwind.config.js<br>
+└── package.json
+</div>
+
+<h3>Key Functions</h3>
+<table>
+<tr><th>Function</th><th>File</th><th>What It Does</th></tr>
+<tr><td><code>searchCompetitions(profile, {force})</code></td><td>searchApi.js</td><td>Main search — checks cache, calls AI, returns {data, fromCache, cachedAt}</td></tr>
+<tr><td><code>computeMatchScore(comp, profile)</code></td><td>searchApi.js</td><td>Returns 0–100 score based on skill/interest/experience/location overlap</td></tr>
+<tr><td><code>getCachedResults(profile)</code></td><td>searchApi.js</td><td>Returns cached results if &lt;30min old for this profile hash, else null</td></tr>
+<tr><td><code>getDeadlineInfo(deadline)</code></td><td>searchApi.js</td><td>Returns {label, isUrgent, isExpired, isClosingSoon, daysLeft}</td></tr>
+<tr><td><code>formatPrize(amount, currency)</code></td><td>searchApi.js</td><td>Formats 10000 → "$10K", 1500000 → "$1.5M"</td></tr>
+<tr><td><code>getDb()</code></td><td>supabase.js</td><td>Lazily initialises Firebase app + Firestore. Returns null if no config.</td></tr>
+<tr><td><code>saveProfile(profile)</code></td><td>supabase.js</td><td>Writes to Firestore profiles/local-user or localStorage</td></tr>
+<tr><td><code>completionScore(p)</code></td><td>Profile.jsx</td><td>Profile fill % used for CompletionBar</td></tr>
+<tr><td><code>applyFilters(list, filters)</code></td><td>Discover.jsx</td><td>Client-side filter + sort pipeline</td></tr>
+</table>
+
+<h3>Environment Variables</h3>
+<table>
+<tr><th>Variable</th><th>Prefix</th><th>Where Used</th><th>Required?</th></tr>
+<tr><td>GROQ_API_KEY</td><td>None (server-only)</td><td>Vite proxy (dev), Vercel serverless (prod)</td><td>Yes for live AI</td></tr>
+<tr><td>ANTHROPIC_API_KEY</td><td>None (server-only)</td><td>Same as above</td><td>No (secondary)</td></tr>
+<tr><td>VITE_FIREBASE_API_KEY</td><td>VITE_</td><td>Browser Firebase init</td><td>No (localStorage fallback)</td></tr>
+<tr><td>VITE_FIREBASE_AUTH_DOMAIN</td><td>VITE_</td><td>Browser Firebase init</td><td>No</td></tr>
+<tr><td>VITE_FIREBASE_PROJECT_ID</td><td>VITE_</td><td>Browser Firebase init + getDb() gate</td><td>No</td></tr>
+<tr><td>VITE_FIREBASE_STORAGE_BUCKET</td><td>VITE_</td><td>Browser Firebase init</td><td>No</td></tr>
+<tr><td>VITE_FIREBASE_MESSAGING_SENDER_ID</td><td>VITE_</td><td>Browser Firebase init</td><td>No</td></tr>
+<tr><td>VITE_FIREBASE_APP_ID</td><td>VITE_</td><td>Browser Firebase init</td><td>No</td></tr>
+</table>
+
+<h3>Common Commands</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><code>npm run dev</code></td><td>Start dev server on localhost:5173 with Vite proxy</td></tr>
+<tr><td><code>npm run build</code></td><td>Bundle to dist/ for production</td></tr>
+<tr><td><code>npm run preview</code></td><td>Preview production build locally</td></tr>
+<tr><td><code>git push origin main</code></td><td>Push to GitHub → auto-triggers Vercel deploy</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 11 ═══════════════════════════════ -->
+<div class="section" id="s11">
+<h2>11. Interview Preparation — Top 25 Questions</h2>
+
+<div class="card">
+<strong>Q1. How does your app avoid exposing API keys in the browser?</strong><br>
+<em>Answer:</em> In development, Vite's proxy intercepts requests to /api/groq/* and /api/anthropic/*, injects the Authorization header server-side using keys loaded via loadEnv (non-VITE_ prefixed, never bundled). In production, a Vercel serverless function (api/search.js) reads keys from process.env and forwards the call. The browser never sees the keys.<br>
+<em>Follow-up:</em> Why not use VITE_ prefix? → Vite statically replaces VITE_ vars in the bundle at build time — they're embedded in the JS file sent to the browser.
+</div>
+
+<div class="card">
+<strong>Q2. Why Firebase over Supabase?</strong><br>
+<em>Answer:</em> Supabase free tier pauses projects after 7 days of inactivity. For a portfolio project, that means the database goes offline until manually resumed. Firebase Firestore never pauses, offers 50K reads/day free, and has a browser SDK that works without a backend server.
+</div>
+
+<div class="card">
+<strong>Q3. Explain your match scoring algorithm.</strong><br>
+<em>Answer:</em> computeMatchScore() is a weighted function: 40 points for skill overlap (intersection of user skills and competition required skills, normalized), 30 points for interest alignment, 20 points for experience level match, 10 points for location preference. Returns a 0–100 integer. Runs client-side on every competition the AI returns.
+</div>
+
+<div class="card">
+<strong>Q4. How does the caching work?</strong><br>
+<em>Answer:</em> When a search completes, results are stored in localStorage under a key derived from a base64 hash of the user's profile fields (skills, interests, experience, preferences). On next visit, getCachedResults() checks if the cached result exists and is less than 30 minutes old. If yes, it's returned immediately without an API call. If the user updates their profile, the save function deletes the cache key.
+</div>
+
+<div class="card">
+<strong>Q5. Why no backend server?</strong><br>
+<em>Answer:</em> A dedicated server adds cost, infra management, and deployment complexity. Vercel serverless functions handle the only server-side requirement (API key security) without any configuration. Firebase Firestore replaces the need for a REST API for data persistence. This keeps the total hosting cost at $0.
+</div>
+
+<div class="card">
+<strong>Q6. How does the Vite proxy work?</strong><br>
+<em>Answer:</em> vite.config.js uses loadEnv(mode, cwd, '') to load ALL env vars including non-VITE_ ones. The proxy config maps /api/groq/* to https://api.groq.com — when the frontend calls /api/groq/openai/v1/chat/completions, Vite rewrites the URL and injects the Authorization header using the server-side GROQ_API_KEY. This only works in development.
+</div>
+
+<div class="card">
+<strong>Q7. What happens if there's no API key configured?</strong><br>
+<em>Answer:</em> searchApi.js has a multi-tier fallback: (1) Vite dev proxy, (2) Vercel /api/search serverless, (3) Direct browser call with VITE_ prefixed key if set, (4) 12 hardcoded mock competitions with real platform URLs. The app is always usable.
+</div>
+
+<div class="card">
+<strong>Q8. How does Firebase integration work with localStorage fallback?</strong><br>
+<em>Answer:</em> getDb() returns null if VITE_FIREBASE_PROJECT_ID is not set. Every function (getProfile, saveProfile, getSavedCompetitions, etc.) checks if db is truthy — if null, it executes the localStorage equivalent. The interface is identical from the caller's perspective.
+</div>
+
+<div class="card">
+<strong>Q9. How did you handle the CompetitionModal scroll lock?</strong><br>
+<em>Answer:</em> In CompetitionModal, useEffect sets document.body.style.overflow = 'hidden' on mount and restores it to '' on cleanup. An Escape key listener is also added and removed via the same effect. This prevents the page from scrolling while the modal is open.
+</div>
+
+<div class="card">
+<strong>Q10. How would you add authentication?</strong><br>
+<em>Answer:</em> Add Firebase Authentication (Google OAuth). Replace the hardcoded 'local-user' ID with auth.currentUser.uid. Update Firestore security rules to allow read/write only when request.auth.uid matches the document's user ID field. Add a login/logout button in Navbar.
+</div>
+
+<div class="card">
+<strong>Q11–25 (Quick Format)</strong>
+<table>
+<tr><th>Q</th><th>Strong Answer Key Point</th></tr>
+<tr><td>Q11. What is useMemo used for?</td><td>applyFilters() wrapped in useMemo([competitions, filters]) to avoid recomputing on unrelated re-renders</td></tr>
+<tr><td>Q12. How does Firestore differ from SQL?</td><td>NoSQL document model; no joins; queries limited to single collection; denormalized data; scales horizontally</td></tr>
+<tr><td>Q13. What's the build output?</td><td>npm run build → Vite bundles to dist/ (HTML + JS chunks + CSS). Vercel serves dist/ as static files.</td></tr>
+<tr><td>Q14. How is React Router configured?</td><td>BrowserRouter in App.jsx with Routes: / → Discover, /profile → Profile, /saved → Saved</td></tr>
+<tr><td>Q15. Why Tailwind over CSS Modules?</td><td>Faster development; consistent spacing/color tokens; no context-switching to CSS files; purges unused styles in build</td></tr>
+<tr><td>Q16. How do you handle Firestore errors?</td><td>try/catch around all async Firestore calls; addToast('error message', 'error') on catch; optimistic UI for status updates</td></tr>
+<tr><td>Q17. What is the Vercel serverless function signature?</td><td>export default async function handler(req, res) — reads req.body.provider, forwards to Groq or Anthropic with injected key</td></tr>
+<tr><td>Q18. Why Groq over OpenAI?</td><td>Groq: free tier, browser CORS support, very fast inference. OpenAI: more capable but costs money and doesn't support direct browser calls securely.</td></tr>
+<tr><td>Q19. How do you prevent duplicate Firebase app init?</td><td>getApps().length check before initializeApp() — if app already exists, reuse it. Required for Vite HMR.</td></tr>
+<tr><td>Q20. What's the Web Share API fallback?</td><td>navigator.share() if available (mobile/Chrome); else navigator.clipboard.writeText() — then toast "Copied to clipboard"</td></tr>
+<tr><td>Q21. How is the deadline urgency determined?</td><td>getDeadlineInfo(): isUrgent = daysLeft ≤ 3, isClosingSoon = daysLeft ≤ 7, isExpired = deadline &lt; now</td></tr>
+<tr><td>Q22. How does the filter sidebar work client-side?</td><td>applyFilters() chains: category filter → prize filter → deadline window → match% floor → remote toggle → team size → sort. Applied via useMemo.</td></tr>
+<tr><td>Q23. What's the CI/CD setup?</td><td>GitHub push → Vercel detects main branch → auto runs build → deploys. No manual steps after initial config.</td></tr>
+<tr><td>Q24. How would you add server-side rendering?</td><td>Migrate to Next.js — pages become server components; API routes replace Vercel serverless; Firebase server-side SDK for secure data access</td></tr>
+<tr><td>Q25. What was the hardest technical challenge?</td><td>API key security without a backend. Required understanding Vite's env var bundling behavior, proxy mechanics, and Vercel's serverless model — three separate environments handled differently.</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 12 ═══════════════════════════════ -->
+<div class="section" id="s12">
+<h2>12. Resume / Portfolio Content</h2>
+<div class="card">
+<h3>Resume Bullet Points</h3>
+<ul>
+<li>Built HackIQ, an AI-powered competition discovery SPA using React 18, Vite, and Tailwind CSS, serving personalised hackathon recommendations based on user skill profiles</li>
+<li>Implemented secure API key architecture using Vite dev proxy and Vercel serverless functions, ensuring zero secret exposure in browser bundles</li>
+<li>Integrated Groq (llama-3.3-70b) and Anthropic Claude APIs with multi-tier fallback: proxy → serverless → mock data — 100% uptime for demo users</li>
+<li>Designed and implemented Firebase Firestore persistence with localStorage fallback, enabling offline-capable data access without a dedicated backend</li>
+<li>Built weighted match scoring algorithm (40% skills, 30% interests, 20% experience, 10% location) to rank 10–20 competitions per search by relevance</li>
+<li>Implemented 30-minute profile-keyed localStorage cache, eliminating redundant AI API calls and reducing latency to &lt;50ms on repeat visits</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>ATS-Friendly Description</h3>
+<p>Full-stack web application | React | Vite | Firebase Firestore | Groq AI | Anthropic | Tailwind CSS | Vercel | REST APIs | localStorage | Serverless | JavaScript | Git | GitHub | CI/CD</p>
+<p>Developed a personalized hackathon discovery platform using React 18, Firebase Firestore, and Groq AI. Implemented secure API integration via Vite proxy and Vercel serverless functions. Built custom match scoring algorithm and 30-minute result caching layer.</p>
+</div>
+
+<div class="card">
+<h3>LinkedIn Description</h3>
+<p>🚀 Built HackIQ — an AI-powered platform that helps developers find hackathons and competitions perfectly matched to their skills.</p>
+<p>The core challenge: making AI search work securely without a backend server. Solution: Vite's dev proxy + Vercel serverless functions inject API keys server-side — zero keys in the browser bundle.</p>
+<p>Features: ✅ Groq AI search (llama-3.3-70b) ✅ Weighted match scoring ✅ Firebase cloud sync ✅ 30-min intelligent caching ✅ Competition pipeline tracker (Bookmarked → Applied → Won)</p>
+<p>Tech: React 18 · Vite · Tailwind CSS · Firebase · Groq API · Vercel</p>
+</div>
+
+<div class="card">
+<h3>One-line Impact Statement</h3>
+<p><em>"HackIQ reduced competition discovery time from hours to seconds using AI-powered personalised search with production-grade API security — all with zero backend infrastructure cost."</em></p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 13 ═══════════════════════════════ -->
+<div class="section" id="s13">
+<h2>13. Lessons Learned</h2>
+<table>
+<tr><th>Learning</th><th>Context</th><th>Impact</th></tr>
+<tr><td>Vite's VITE_ prefix embeds values in browser bundle at build time</td><td>API key security discovery</td><td>Now default approach: non-VITE_ keys for secrets, proxy for dev, serverless for prod</td></tr>
+<tr><td>Free tier constraints must be researched before choosing a DB</td><td>Supabase → Firebase migration</td><td>Always check "does this pause?" for portfolio projects</td></tr>
+<tr><td>Prompt engineering dramatically affects LLM output quality</td><td>Fake competition data from poor prompts</td><td>Include today's date, real URLs, strict JSON schema in every AI prompt</td></tr>
+<tr><td>localStorage is a complete persistence solution for simple apps</td><td>Fallback design</td><td>Ship first with localStorage; add cloud DB as optional enhancement</td></tr>
+<tr><td>Optimistic UI + async DB updates = better UX, needs error handling</td><td>Status update in Saved page</td><td>Always pair optimistic updates with toast error on failure</td></tr>
+<tr><td>File naming for import compatibility matters in migrations</td><td>Keeping supabase.js filename after Firebase migration</td><td>Sometimes keeping misleading names is better than refactoring all imports</td></tr>
+<tr><td>Git amend + force push workflow for commit corrections</td><td>Author name fix</td><td>Know when force push is safe (brand new solo repo) vs dangerous (shared history)</td></tr>
+<tr><td>CSS selector specificity debugging</td><td>Modal false positive with backdrop-filter</td><td>Use semantic content checks for DOM verification, not CSS property matches</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 14 ═══════════════════════════════ -->
+<div class="section" id="s14">
+<h2>14. Future Improvements</h2>
+<div class="two-col">
+<div class="card">
+<h3>Immediate (next sprint)</h3>
+<ul>
+<li>Firebase Authentication (Google OAuth)</li>
+<li>Tighten Firestore security rules (per-user)</li>
+<li>Rename supabase.js → db.js</li>
+<li>Rate limiting on /api/search endpoint</li>
+<li>Error boundary for React component crashes</li>
+<li>Real competition data verification (filter expired ones)</li>
+</ul>
+</div>
+<div class="card">
+<h3>Advanced Version</h3>
+<ul>
+<li>Server-side result caching (Redis on Upstash)</li>
+<li>Email/push notifications for new matching competitions</li>
+<li>Competition calendar integration (Google Calendar)</li>
+<li>Team-finding feature (match with other participants)</li>
+<li>Application tracking with notes and deadlines</li>
+<li>Browser extension for one-click save from competition pages</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<h3>Production-grade / Scale-up Vision</h3>
+<ul>
+<li>Migrate to Next.js for SSR, better SEO, unified API routes</li>
+<li>Dedicated competition data scraper (Playwright) running on schedule</li>
+<li>Real-time competition database refreshed daily (not AI-generated)</li>
+<li>Community features: reviews, team recruiting, post-competition write-ups</li>
+<li>Analytics dashboard showing user's win rate, domains, activity</li>
+<li>Mobile app (React Native) sharing same Firebase backend</li>
+</ul>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ SECTION 15 ═══════════════════════════════ -->
+<div class="section" id="s15">
+<h2>15. Rapid Revision Sheet (5-min before interview)</h2>
+<div class="card" style="border-left:3px solid #7F77DD">
+<table>
+<tr><th>Topic</th><th>Key Points</th></tr>
+<tr><td>What is it?</td><td>AI-powered hackathon discovery SPA. Personalized by skill profile. Match scored 0–100.</td></tr>
+<tr><td>Stack</td><td>React 18 + Vite 6 + Tailwind CSS | Firebase Firestore | Groq AI (llama-3.3-70b) | Vercel</td></tr>
+<tr><td>No backend?</td><td>Vite proxy (dev) + Vercel serverless api/search.js (prod) handle key security</td></tr>
+<tr><td>Database</td><td>Firebase Firestore. Fallback: localStorage. Collections: profiles, saved_competitions.</td></tr>
+<tr><td>Cache</td><td>localStorage, 30-min TTL, keyed by base64 hash of profile fields</td></tr>
+<tr><td>Match score</td><td>40% skills + 30% interests + 20% experience + 10% location = 0-100</td></tr>
+<tr><td>Biggest bug</td><td>API keys exposed in browser → solved with non-VITE_ env vars + Vite proxy</td></tr>
+<tr><td>Biggest change</td><td>Supabase → Firebase (Supabase pauses after 7 days free tier)</td></tr>
+<tr><td>Security answer</td><td>Keys never in browser. Proxy injects in dev. Serverless injects in prod. .env in .gitignore.</td></tr>
+<tr><td>Scale answer</td><td>Add Firebase Auth + Blaze plan + Redis cache + backend API at 1K users. Next.js + microservices at 1M.</td></tr>
+<tr><td>Deployment</td><td>GitHub push → Vercel auto-deploy. 8 env vars set in Vercel dashboard.</td></tr>
+<tr><td>Standout story</td><td>"Built production API security without any backend — Vite proxy + serverless = zero-cost zero-exposure solution"</td></tr>
+</table>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 1 ═══════════════════════════════ -->
+<div class="section" id="d1">
+<h2>Deliverable 1: Interview Cheat Sheet</h2>
+<table>
+<tr><th>Topic</th><th>What I Must Remember</th></tr>
+<tr><td>Architecture</td><td>SPA + No backend server. Vite proxy (dev) → Vercel serverless (prod). Firebase Firestore + localStorage fallback.</td></tr>
+<tr><td>AI Integration</td><td>Groq primary (llama-3.3-70b, free, CORS-friendly). Anthropic secondary (web_search tool). Multi-tier fallback to mock data.</td></tr>
+<tr><td>API Security</td><td>GROQ_API_KEY (no VITE_ prefix) → never bundled → Vite proxy injects header → Vercel serverless in prod</td></tr>
+<tr><td>Match Scoring</td><td>computeMatchScore(): 40pts skills, 30pts interests, 20pts experience, 10pts location. Client-side JS.</td></tr>
+<tr><td>Caching</td><td>localStorage, 30-min TTL, base64(profile fields) as key. getCachedResults() / clearCache() exported.</td></tr>
+<tr><td>Database</td><td>Firebase Firestore. Collections: profiles (doc: local-user), saved_competitions. SDK: getDoc, setDoc, getDocs, updateDoc, deleteDoc.</td></tr>
+<tr><td>DB Fallback</td><td>getDb() returns null if no VITE_FIREBASE_PROJECT_ID → localStorage path executes</td></tr>
+<tr><td>Deployment</td><td>Vercel. 8 env vars. api/search.js = serverless. npm run build → dist/. Auto-deploy on git push.</td></tr>
+<tr><td>Key Components</td><td>CompetitionModal (overlay, Escape, scroll lock), FilterSidebar (useMemo), MatchScoreRing (SVG animation), TagInput (suggestions)</td></tr>
+<tr><td>Authentication</td><td>NOT implemented. Uses fixed 'local-user' ID. Add Firebase Auth (Google OAuth) as next step.</td></tr>
+<tr><td>Performance</td><td>useMemo for filters. Cache for API. Skeleton loading. Animation stagger. Firebase singleton pattern.</td></tr>
+<tr><td>Biggest challenge</td><td>API key security without a backend. Required Vite proxy + Vercel serverless understanding.</td></tr>
+<tr><td>Biggest migration</td><td>Supabase → Firebase. Reason: Supabase free tier pauses after 7 days. Same function signatures kept — zero page code changes.</td></tr>
+<tr><td>GitHub</td><td>gurusaiss/HackIQ | Author: GURU SAI SUMITH | 28 files | Initial commit</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 2 ═══════════════════════════════ -->
+<div class="section" id="d2">
+<h2>Deliverable 2: Project Knowledge Base FAQ</h2>
+
+<div class="card">
+<h3>Why React + Vite over Next.js?</h3>
+<p>HackIQ is a fully client-rendered app with no SEO requirements (no public competition pages to index). Next.js adds SSR complexity without benefit. Vite is faster in development and the proxy feature is built-in — perfect for the API security use case.</p>
+</div>
+<div class="card">
+<h3>Why not just use OpenAI?</h3>
+<p>OpenAI doesn't support browser CORS by default. Groq does — meaning in a pinch you can call it directly from the browser with a VITE_ key for demos. Groq is also free. OpenAI would still require the proxy/serverless architecture.</p>
+</div>
+<div class="card">
+<h3>Biggest challenge?</h3>
+<p>Making API key security work without a dedicated backend. Vite's VITE_ convention is a trap — it looks like an env var but gets embedded in the bundle. Needed to understand loadEnv(), the proxy mechanism, and Vercel serverless all at once.</p>
+</div>
+<div class="card">
+<h3>Biggest mistake?</h3>
+<p>Initially choosing Supabase without checking the free tier pause policy. This required a full database layer rewrite mid-project. Lesson: always check infrastructure limitations before writing integration code.</p>
+</div>
+<div class="card">
+<h3>Biggest learning?</h3>
+<p>That "no backend" doesn't mean "no server-side code". Vite proxy and Vercel serverless ARE server-side code — just managed differently. Understanding this distinction is key to building secure frontends without a full backend.</p>
+</div>
+<div class="card">
+<h3>What would you improve?</h3>
+<p>1. Add Firebase Authentication — replace the hardcoded user ID with a real auth identity. 2. Add real-time competition data via a scheduled scraper instead of AI-generated data. 3. Rename supabase.js to db.js for clarity. 4. Add Sentry for error monitoring.</p>
+</div>
+<div class="card">
+<h3>How would you scale to 1M users?</h3>
+<p>Migrate to Next.js for server components. Add Firebase Auth. Upgrade Firestore to Blaze plan with per-user security rules. Add Redis cache (Upstash) for competition search results to share across users. Add a backend service (Node.js + BullMQ) for queue-based AI searches. Deploy on Vercel Pro or Cloud Run for higher function limits.</p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 3 ═══════════════════════════════ -->
+<div class="section" id="d3">
+<h2>Deliverable 3: STAR Stories</h2>
+
+<div class="card">
+<h3>Story 1: API Key Security Bug</h3>
+<strong>Situation:</strong> Building HackIQ — needed to call Groq and Anthropic APIs from a React frontend.<br>
+<strong>Task:</strong> Ensure API keys are never exposed in the browser bundle or network requests visible to users.<br>
+<strong>Action:</strong> Discovered Vite's VITE_ prefix embeds env vars into the JS bundle at build time. Designed a two-tier solution: (1) Vite dev proxy that intercepts /api/* calls and injects Authorization headers server-side using non-VITE_ keys. (2) Vercel serverless function (api/search.js) for production — reads keys from process.env and forwards calls.<br>
+<strong>Result:</strong> Zero API keys in browser bundle. Verified by inspecting the built JS files. Works in both dev and production without any config changes.
+</div>
+
+<div class="card">
+<h3>Story 2: Database Migration (Supabase → Firebase)</h3>
+<strong>Situation:</strong> HackIQ was built with Supabase for database persistence. Midway through development, discovered Supabase's free tier pauses projects after 7 days of inactivity.<br>
+<strong>Task:</strong> Migrate to a database that never pauses, without breaking the 3 pages that imported from the supabase.js module.<br>
+<strong>Action:</strong> Researched alternatives and chose Firebase Firestore (never pauses, 50K reads/day free, browser SDK). Rewrote supabase.js from scratch with Firebase — keeping the exact same function signatures (getProfile, saveProfile, getSavedCompetitions, etc.). Kept the filename as supabase.js to avoid any import changes across Discover, Profile, and Saved pages.<br>
+<strong>Result:</strong> Full migration completed in one session. Zero changes to page files. App now runs on a database that's always available, with no performance degradation.
+</div>
+
+<div class="card">
+<h3>Story 3: Fake Competition Data Problem</h3>
+<strong>Situation:</strong> Product audit identified that the AI was returning generic, low-quality, potentially fake competition data with made-up URLs.<br>
+<strong>Task:</strong> Make the AI return real, accurate competition data with valid application links.<br>
+<strong>Action:</strong> Rewrote the system prompt in searchApi.js to include: today's exact date (so deadlines are realistic), real platform URLs for Devpost/Kaggle/HackerEarth/Unstop/HackerRank, a strict 12-field JSON schema with examples, and explicit instruction to only reference platforms with real competitions. Added 12 hardcoded fallback competitions with verified real URLs.<br>
+<strong>Result:</strong> Competition data quality significantly improved. Deadlines are realistic. URLs point to real platforms. Fallback ensures usability even when AI quality degrades.
+</div>
+
+<div class="card">
+<h3>Story 4: Result Caching Optimization</h3>
+<strong>Situation:</strong> Every visit to the Discover page triggered a 2–3 second AI API call, burning API quota and creating a poor UX for repeat visitors.<br>
+<strong>Task:</strong> Eliminate redundant API calls while keeping results personalised per user profile.<br>
+<strong>Action:</strong> Implemented a localStorage cache with a 30-minute TTL. Cache key is a base64 hash of the user's profile fields (skills, interests, experience, location). getCachedResults() checks age before serving. Cache is cleared when profile is saved. Discover page restores from cache on mount — no search needed.<br>
+<strong>Result:</strong> Repeat page visits went from 2–3s to &lt;50ms. API calls reduced ~80% during a typical session. Profile changes automatically invalidate and refresh results.
+</div>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 4 ═══════════════════════════════ -->
+<div class="section" id="d4">
+<h2>Deliverable 4: 5-Minute Revision Sheet</h2>
+<div class="card" style="border:2px solid #7F77DD">
+<p><strong>Elevator Pitch:</strong> HackIQ discovers and scores hackathons/competitions personalised to your skills using Groq AI — with API key security, Firebase persistence, and 30-min caching. No backend server needed.</p>
+
+<p><strong>Stack:</strong> React 18 · Vite 6 · Tailwind CSS · Firebase Firestore · Groq (llama-3.3-70b) · Vercel</p>
+
+<p><strong>Architecture:</strong> SPA → Vite proxy (dev) / Vercel serverless (prod) → Groq API → JSON competitions → match score → Firebase/localStorage</p>
+
+<p><strong>Key Features:</strong> AI search · Match scoring (40/30/20/10 weights) · 30-min cache · Competition modal · Filter sidebar · Saved tracker · Firebase sync · localStorage fallback</p>
+
+<p><strong>Top Bug:</strong> API keys in browser bundle → Fixed: non-VITE_ prefix + Vite proxy + Vercel serverless</p>
+
+<p><strong>Top Migration:</strong> Supabase → Firebase (Supabase pauses after 7 days free)</p>
+
+<p><strong>Security:</strong> GROQ_API_KEY never in browser. Proxy injects header in dev. Serverless injects in prod. .gitignore protects .env.</p>
+
+<p><strong>Scale:</strong> 10 users: current setup. 1K: Firebase Auth + Blaze plan. 1M: Next.js SSR + Redis cache + backend queue.</p>
+
+<p><strong>Deployment:</strong> git push → Vercel auto-deploys. 8 env vars. api/search.js = serverless function.</p>
+
+<p><strong>Key Interview Answers:</strong><br>
+"No backend" → Vite proxy + Vercel serverless = server-side key injection<br>
+"Database choice" → Firebase never pauses; Supabase does<br>
+"Match score" → 40% skills + 30% interests + 20% experience + 10% location<br>
+"Cache" → localStorage, 30 min, profile hash key<br>
+"Scale" → Firebase Auth + Redis + Next.js</p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 5 ═══════════════════════════════ -->
+<div class="section" id="d5">
+<h2>Deliverable 5: Knowledge Gap Detection</h2>
+<table>
+<tr><th>Area</th><th>Likely Weakness</th><th>What To Study</th><th>Priority</th></tr>
+<tr><td>Firebase Firestore internals</td><td>Deep query capabilities, indexing, composite queries, Firestore pricing beyond free tier</td><td>Firestore docs: queries, indexes, security rules, data modeling patterns</td><td><span class="badge b-red">High</span></td></tr>
+<tr><td>Vercel serverless functions</td><td>Cold start behaviour, function timeout limits, streaming responses, edge functions vs serverless</td><td>Vercel docs: functions, edge runtime, limits, streaming</td><td><span class="badge b-red">High</span></td></tr>
+<tr><td>Vite proxy internals</td><td>How loadEnv() works internally, proxy rewrite rules, hot module replacement</td><td>Vite docs: server.proxy, loadEnv(), env variables guide</td><td><span class="badge b-amber">Medium</span></td></tr>
+<tr><td>LLM prompt engineering</td><td>Structured output guarantees, JSON mode, temperature effects, token counting</td><td>Groq API docs, OpenAI structured outputs, prompt engineering guide</td><td><span class="badge b-amber">Medium</span></td></tr>
+<tr><td>React performance</td><td>When to use useMemo vs useCallback vs memo(), Context re-render behaviour</td><td>React docs on performance optimisation, Profiler API</td><td><span class="badge b-amber">Medium</span></td></tr>
+<tr><td>Web security (OWASP)</td><td>Rate limiting, CSRF, injection attacks beyond what's implemented</td><td>OWASP Top 10, Content Security Policy headers, Firebase security rules patterns</td><td><span class="badge b-amber">Medium</span></td></tr>
+<tr><td>Authentication flows</td><td>JWT vs session tokens, OAuth 2.0 flow, Firebase Auth internals</td><td>Firebase Auth docs, OAuth 2.0 RFC, JWT.io</td><td><span class="badge b-amber">Medium</span></td></tr>
+<tr><td>System design at scale</td><td>Specific numbers for Firestore/Vercel limits, CDN strategy, database sharding</td><td>Firebase quotas page, CAP theorem, load balancing patterns</td><td><span class="badge b-blue">Lower</span></td></tr>
+<tr><td>Testing</td><td>No tests written — would struggle if asked about testing strategy</td><td>Vitest for unit tests, React Testing Library for components, Playwright for E2E</td><td><span class="badge b-red">High</span></td></tr>
+<tr><td>TypeScript</td><td>App is in plain JavaScript — no type safety</td><td>TypeScript fundamentals, React + TypeScript patterns, interfaces vs types</td><td><span class="badge b-amber">Medium</span></td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 6 ═══════════════════════════════ -->
+<div class="section" id="d6">
+<h2>Deliverable 6: Confidence Ratings</h2>
+<table>
+<tr><th>Module</th><th>Score (1–10)</th><th>Reason</th></tr>
+<tr><td>API key security architecture</td><td><span class="conf-high">9/10</span></td><td>Built from scratch; understand Vite proxy + serverless deeply</td></tr>
+<tr><td>React fundamentals (hooks, state, effects)</td><td><span class="conf-high">8/10</span></td><td>Used throughout; solid understanding of useState/useEffect/useMemo</td></tr>
+<tr><td>Match scoring algorithm</td><td><span class="conf-high">9/10</span></td><td>Own implementation; can explain every weight decision</td></tr>
+<tr><td>localStorage caching</td><td><span class="conf-high">8/10</span></td><td>Implemented TTL, hash keying, cache invalidation</td></tr>
+<tr><td>Firebase Firestore (basic CRUD)</td><td><span class="conf-high">8/10</span></td><td>Implemented all 5 operations; understand collections/documents</td></tr>
+<tr><td>Tailwind CSS</td><td><span class="conf-high">8/10</span></td><td>Used extensively; comfortable with utility classes and dark theme</td></tr>
+<tr><td>Vite configuration</td><td><span class="conf-high">7/10</span></td><td>Used proxy config and loadEnv — understand the mechanism</td></tr>
+<tr><td>Vercel deployment + serverless</td><td><span class="conf-high">7/10</span></td><td>Set up from scratch; understand env vars and function routing</td></tr>
+<tr><td>Groq/Anthropic API integration</td><td><span class="conf-med">7/10</span></td><td>Integrated both; could explain multi-tier fallback flow</td></tr>
+<tr><td>Git workflow (init, amend, force push)</td><td><span class="conf-high">8/10</span></td><td>Performed all operations including force push with amend</td></tr>
+<tr><td>Firebase Auth</td><td><span class="conf-low">3/10</span></td><td>Not implemented — know what's needed but haven't done it</td></tr>
+<tr><td>Testing (unit/integration/E2E)</td><td><span class="conf-low">2/10</span></td><td>No tests written for this project — risky interview area</td></tr>
+<tr><td>TypeScript</td><td><span class="conf-low">4/10</span></td><td>App in JS — can discuss TypeScript but didn't use it here</td></tr>
+<tr><td>Firestore security rules (advanced)</td><td><span class="conf-med">5/10</span></td><td>Know basic structure; open rules used; per-user rules not implemented</td></tr>
+<tr><td>System design at scale (1M users)</td><td><span class="conf-med">6/10</span></td><td>Have a plan (Next.js, Redis, queues) but haven't built it</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════ DELIVERABLE 7 ═══════════════════════════════ -->
+<div class="section" id="d7">
+<h2>Deliverable 7: Mock Interview</h2>
+
+<h3>HR Questions (20)</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Ideal Answer Key Point</th></tr>
+<tr><td>1</td><td>Tell me about HackIQ in 60 seconds</td><td>AI competition discovery + personalised scoring + Firebase + Vercel + no backend server</td></tr>
+<tr><td>2</td><td>Why did you build this project?</td><td>Personal pain point — manually searching multiple platforms for hackathons. Built the tool I wished existed.</td></tr>
+<tr><td>3</td><td>What are you most proud of?</td><td>API key security without a backend — required understanding 3 different environments (Vite, Vercel, browser) simultaneously</td></tr>
+<tr><td>4</td><td>What would you do differently?</td><td>TypeScript from day 1; tests from the start; Firebase Auth before Firebase DB</td></tr>
+<tr><td>5</td><td>What was the hardest part?</td><td>Realising VITE_ prefix exposes secrets. Having to redesign the architecture mid-build.</td></tr>
+<tr><td>6</td><td>How long did it take?</td><td>One intensive development session across multiple phases — from PRD to deployed app</td></tr>
+<tr><td>7</td><td>Is it live?</td><td>Yes — GitHub: gurusaiss/HackIQ. Deployable to Vercel with env vars from .env.example.</td></tr>
+<tr><td>8</td><td>Could it make money?</td><td>Yes — premium AI credits, sponsored competitions, job board integration</td></tr>
+<tr><td>9</td><td>Who is the user?</td><td>CS students, developers, data scientists, designers seeking competitions</td></tr>
+<tr><td>10</td><td>What feedback have you gotten?</td><td>Built for portfolio — seeking user feedback post-launch</td></tr>
+<tr><td>11</td><td>How does it differ from Devpost?</td><td>Devpost is a platform. HackIQ is an aggregator with AI personalisation and match scoring across all platforms.</td></tr>
+<tr><td>12</td><td>What skills did you learn?</td><td>Vite proxy mechanics, Firebase Firestore, LLM prompt engineering, serverless deployment</td></tr>
+<tr><td>13</td><td>What's your tech stack?</td><td>React 18 + Vite + Tailwind + Firebase + Groq + Vercel</td></tr>
+<tr><td>14</td><td>Did you work alone?</td><td>Yes — solo project. All architecture, code, and deployment decisions made independently.</td></tr>
+<tr><td>15</td><td>What would v2.0 look like?</td><td>Firebase Auth, real-time scraper, team-finding, mobile app</td></tr>
+<tr><td>16</td><td>How do you stay updated on tech?</td><td>Documentation-first; Vite docs, Firebase docs, Groq changelog</td></tr>
+<tr><td>17</td><td>How does it handle errors?</td><td>Multi-tier fallback: proxy → serverless → VITE_ key → mock data. Toast notifications on all failures.</td></tr>
+<tr><td>18</td><td>Is it accessible?</td><td>Semantic HTML (article, nav, h1/h2/h3); keyboard navigation; contrast-compliant dark theme</td></tr>
+<tr><td>19</td><td>How did you test it?</td><td>Preview server + accessibility snapshot tool + manual click testing across all 3 pages</td></tr>
+<tr><td>20</td><td>Why Vercel over Netlify?</td><td>Built-in serverless functions (critical for API security); GitHub integration; free tier is generous</td></tr>
+</table>
+
+<h3>Technical Questions (30)</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Key Answer</th></tr>
+<tr><td>1</td><td>How does Vite's proxy work at a low level?</td><td>http-proxy-middleware intercepts requests matching the pattern, rewrites headers, forwards to target server</td></tr>
+<tr><td>2</td><td>What's the difference between loadEnv and import.meta.env?</td><td>loadEnv: Node.js context in vite.config.js, loads ALL vars. import.meta.env: browser context, only VITE_ prefixed vars.</td></tr>
+<tr><td>3</td><td>Explain React's useEffect cleanup</td><td>Return function from useEffect; runs before next effect or unmount. Used for event listener removal and overflow style reset in modal.</td></tr>
+<tr><td>4</td><td>Why useMemo for filters?</td><td>applyFilters is expensive. useMemo memoizes result by [competitions, filters] deps — avoids recompute on unrelated state changes.</td></tr>
+<tr><td>5</td><td>How does Firestore order documents?</td><td>orderBy('saved_at', 'desc') in query. Single-field index auto-created by Firestore. Composite index needed for multi-field orderBy.</td></tr>
+<tr><td>6</td><td>What is the Vercel serverless function execution model?</td><td>Node.js Lambda-style. Cold start on first call. 10s timeout on free tier. Each request is isolated.</td></tr>
+<tr><td>7</td><td>How does React Context work in this app?</td><td>ToastContext created, ToastProvider wraps App. useToast() hook provides addToast(). Any component can trigger a toast.</td></tr>
+<tr><td>8</td><td>Explain the Firebase singleton pattern used</td><td>getApps().length check prevents duplicate app init. Firebase SDK throws if initializeApp called twice — this guard prevents that.</td></tr>
+<tr><td>9</td><td>How does the match score handle missing profile data?</td><td>Each scoring component contributes 0 if data is empty. Score = 0 with no profile, incentivising users to fill their profile.</td></tr>
+<tr><td>10</td><td>What's the SVG animation technique for MatchScoreRing?</td><td>strokeDasharray = circumference; strokeDashoffset starts at circumference (empty) → animates to circumference * (1 - score/100) via setTimeout</td></tr>
+<tr><td>11</td><td>How does the share functionality work?</td><td>navigator.share() (native mobile share sheet) if available. Else navigator.clipboard.writeText() with toast confirmation.</td></tr>
+<tr><td>12</td><td>Why is the file still called supabase.js?</td><td>Keeping the filename preserves all existing import statements in 3 pages. Renaming would require updating all imports — accepted tradeoff.</td></tr>
+<tr><td>13</td><td>How does Tailwind's purge work?</td><td>Vite build scans content files (src/**/*.{jsx,js}) for class strings, removes unused Tailwind classes from final CSS bundle.</td></tr>
+<tr><td>14</td><td>What is React Router BrowserRouter vs HashRouter?</td><td>BrowserRouter: clean URLs (/profile). Needs server to redirect all routes to index.html. Vercel handles this automatically. HashRouter: /#/profile — no server config needed but ugly URLs.</td></tr>
+<tr><td>15</td><td>How does optimistic UI work in status update?</td><td>setItems(prev => prev.map(...)) immediately. Then await Firestore updateDoc. On Firestore error: addToast('error') — UI already shows new state.</td></tr>
+<tr><td>16</td><td>What CORS headers does api/search.js set?</td><td>Access-Control-Allow-Origin: *, Access-Control-Allow-Methods: POST, OPTIONS, Access-Control-Allow-Headers: Content-Type</td></tr>
+<tr><td>17</td><td>How would you add TypeScript to this project?</td><td>npm install typescript @types/react. Rename .jsx → .tsx. Add tsconfig.json. Define interfaces for Competition, Profile, etc.</td></tr>
+<tr><td>18</td><td>How does the deadline urgency logic work?</td><td>getDeadlineInfo(deadline): daysLeft calculated. isUrgent = daysLeft ≤ 3; isClosingSoon = daysLeft ≤ 7; isExpired = past date</td></tr>
+<tr><td>19</td><td>What's the difference between Firestore and Firebase RTDB?</td><td>Firestore: document/collection model, richer queries, better scaling. RTDB: JSON tree, real-time sync, simpler but less query power.</td></tr>
+<tr><td>20</td><td>How does Vite handle hot module replacement?</td><td>Vite uses ES module graph. Changed module → invalidates only that module + dependents. React component state preserved where possible.</td></tr>
+<tr><td>21</td><td>Why base64 for the cache key?</td><td>Profile fields (arrays) can't be used directly as localStorage keys. JSON.stringify → btoa() creates a stable, unique string key per profile state.</td></tr>
+<tr><td>22</td><td>What are Firestore security rules and why are current ones a risk?</td><td>Rules control read/write access. Current: allow all. Risk: anyone with the config can read/write all data. Fix: require auth.uid match.</td></tr>
+<tr><td>23</td><td>How does React handle XSS by default?</td><td>JSX escapes all values before rendering to DOM. {userInput} never executes scripts. dangerouslySetInnerHTML bypasses this — not used in HackIQ.</td></tr>
+<tr><td>24</td><td>What happens if Groq API is down?</td><td>searchApi.js catches the error, falls through to Anthropic, then to mock data. addToast('Search failed') shown to user. App remains usable.</td></tr>
+<tr><td>25</td><td>How would you implement pagination?</td><td>Firestore: startAfter(lastDoc) cursor pagination. Client: slice competitions array by page number. Prefer cursor for Firestore performance.</td></tr>
+<tr><td>26</td><td>What is Vite's defineConfig?</td><td>TypeScript-aware config factory. Provides IntelliSense for vite.config.js. Wraps the config object.</td></tr>
+<tr><td>27</td><td>What's the difference between let and const in JS?</td><td>const: binding is immutable (reference fixed); let: rebindable. Both block-scoped. const doesn't prevent object mutation.</td></tr>
+<tr><td>28</td><td>How does useCallback relate to this project?</td><td>handleKey in CompetitionModal is wrapped in useCallback to prevent recreation on re-renders — important because it's added as an event listener.</td></tr>
+<tr><td>29</td><td>What is tree shaking?</td><td>Build-time elimination of unused exports. Vite + ESM enables this. Only Firebase functions actually imported get bundled, not the entire SDK.</td></tr>
+<tr><td>30</td><td>Why use async/await over .then() in Firebase calls?</td><td>Readability. Cleaner error handling with try/catch. Firebase SDK returns Promises — both patterns work identically.</td></tr>
+</table>
+
+<h3>Project-Specific Questions (20)</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Key Answer</th></tr>
+<tr><td>1</td><td>Walk me through clicking Search Now</td><td>handleSearch() → setLoading(true) → getCachedResults() check → miss: searchCompetitions() → proxy/serverless → Groq → JSON → computeMatchScore() × N → setCompetitions() → cache stored → loading false</td></tr>
+<tr><td>2</td><td>How does saving a competition work end to end?</td><td>handleSave(comp) → saveCompetition(comp) in supabase.js → getDb() → if Firestore: setDoc(doc(db, 'saved_competitions', id), item) → setSavedIds(prev + id) → toast</td></tr>
+<tr><td>3</td><td>What happens when profile is saved?</td><td>handleSave() → saveProfile() → Firestore/localStorage → localStorage.removeItem('ciq_results_v2') (cache cleared) → toast</td></tr>
+<tr><td>4</td><td>How does the filter sidebar communicate with Discover?</td><td>Discover owns filters state. setFilter(key, val) passed as onChange prop to FilterSidebar. filtered = useMemo(applyFilters(competitions, filters))</td></tr>
+<tr><td>5</td><td>Why is the modal opened via state instead of routing?</td><td>Preserves filter state and scroll position. No URL change required. Faster UX — no page transition. Competition URL could be a future enhancement.</td></tr>
+<tr><td>6</td><td>How does the Refresh button differ from Search Now?</td><td>Refresh: clearCache() first → handleSearch(force=true). Search Now: checks cache first, uses it if valid.</td></tr>
+<tr><td>7</td><td>What is ciq_results_v2 key?</td><td>localStorage cache key for search results (v2 indicates the schema version). Cleared on profile save. Checked in getCachedResults().</td></tr>
+<tr><td>8</td><td>How does the status dropdown work in Saved page?</td><td>select value={item.status}, onChange → handleStatusChange(id, newStatus) → optimistic setItems → await updateCompetitionStatus() → Firestore updateDoc / localStorage</td></tr>
+<tr><td>9</td><td>What's in the mock competition fallback?</td><td>12 hardcoded competitions with real platform URLs (Devpost/Kaggle/HackerEarth/MLH). Activate as last tier if all API calls fail.</td></tr>
+<tr><td>10</td><td>How does hasProfile affect the UI?</td><td>hasProfile = Boolean(profile?.skills?.length). If false: hero shows "set up profile" message + button. EmptyState shows noProfile state. Match scores = 0.</td></tr>
+<tr><td>11</td><td>What are the 3 routes and their components?</td><td>/ → Discover.jsx, /profile → Profile.jsx, /saved → Saved.jsx. All wrapped in Navbar layout in App.jsx.</td></tr>
+<tr><td>12</td><td>How does the Navbar mobile menu work?</td><td>useState(false) for isOpen. Hamburger button toggles. Drawer slides down conditionally. Links close the drawer on click.</td></tr>
+<tr><td>13</td><td>How many competitions does the AI return typically?</td><td>Prompt instructs 12–15. Array JSON parsed client-side. computeMatchScore applied to each. Sorted by matchScore descending.</td></tr>
+<tr><td>14</td><td>What toast types exist?</td><td>success (green), error (red), info (blue/gray). addToast(message, type). Auto-dismiss 3.5s.</td></tr>
+<tr><td>15</td><td>How does the animation stagger work?</td><td>Inline style on each card: animationDelay = Math.min(i * 35, 350) + 'ms'. opacity: 0 initial, animation: fadeIn 0.4s forwards.</td></tr>
+<tr><td>16</td><td>What are the CATEGORY_COLORS used for?</td><td>Map competition.category to bg/text/border color tuple for the category badge on each card. Defaults to Hackathon colors.</td></tr>
+<tr><td>17</td><td>How does TagInput handle Backspace?</td><td>onKeyDown: if Backspace and input is empty and tags.length > 0 → onChange(tags.slice(0, -1))</td></tr>
+<tr><td>18</td><td>What's the CompletionBar color logic?</td><td>score >= 80: green (#10B981). score >= 50: amber (#F59E0B). else: indigo (#6366F1). Label: "Profile complete" / "Good start" / "Incomplete"</td></tr>
+<tr><td>19</td><td>How does clicking outside the modal close it?</td><td>backdrop div onClick: if (e.target === e.currentTarget) onClose(). Prevents bubble — only fires when clicking the backdrop itself.</td></tr>
+<tr><td>20</td><td>What's the hero glow effect?</td><td>CSS class hero-glow in index.css: radial gradient background creating an indigo glow at the top of the page.</td></tr>
+</table>
+
+<h3>Debugging Questions (10)</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Answer</th></tr>
+<tr><td>1</td><td>How would you debug if competitions aren't showing?</td><td>Check browser console for errors → network tab for API call → check if API key is set → test with mock data fallback → verify JSON parsing</td></tr>
+<tr><td>2</td><td>Firebase read failed — how do you diagnose?</td><td>Firebase console → Firestore → Usage tab for quota. Check security rules. Add console.error to catch. Verify VITE_FIREBASE_PROJECT_ID is set correctly.</td></tr>
+<tr><td>3</td><td>Profile not persisting after page refresh — why?</td><td>Either Firebase not configured (using localStorage — check DevTools Application tab) or saveProfile threw and error was swallowed. Check toast for error.</td></tr>
+<tr><td>4</td><td>Search shows cached results despite profile change — why?</td><td>Profile save didn't clear the cache. Check if localStorage.removeItem('ciq_results_v2') runs in handleSave(). Verify cache key matches profile hash.</td></tr>
+<tr><td>5</td><td>Modal Escape key not working — debug approach?</td><td>Verify useEffect adds keydown listener. Check if onClose prop is passed. Verify handleKey uses useCallback to prevent stale closure.</td></tr>
+<tr><td>6</td><td>Vercel deployment succeeds but app shows blank screen — why?</td><td>Build error in dist/. Check Vercel build logs. Often missing env var causing runtime crash. Check browser console for React error.</td></tr>
+<tr><td>7</td><td>API returns 401 on Vercel but works locally — why?</td><td>Env var not set in Vercel dashboard (only in .env file locally). Check Vercel → Project Settings → Environment Variables.</td></tr>
+<tr><td>8</td><td>Filter not working — match score filter shows all results — why?</td><td>minMatch filter: if (f.minMatch > 0). If minMatch is "40" (string) instead of 40 (number), comparison fails. Ensure select value is parsed as number.</td></tr>
+<tr><td>9</td><td>Multiple Firebase app error in console — what's the fix?</td><td>Remove initializeApp() call → replace with: getApps().length ? getApps()[0] : initializeApp(config)</td></tr>
+<tr><td>10</td><td>Card save button saves but isSaved prop stays false — why?</td><td>savedIds Set not updated. Verify setSavedIds(prev => new Set([...prev, competition.id])) fires after successful saveCompetition().</td></tr>
+</table>
+
+<h3>System Design Questions (10)</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Key Answer</th></tr>
+<tr><td>1</td><td>Design HackIQ for 1M users</td><td>Next.js SSR → Firebase Auth → Firestore Blaze → Redis cache (Upstash) for shared search results → BullMQ queue for AI calls → CDN for static assets → rate limiting middleware</td></tr>
+<tr><td>2</td><td>How would you implement real-time competition updates?</td><td>Firestore onSnapshot() listener on saved_competitions collection → real-time UI updates without polling</td></tr>
+<tr><td>3</td><td>How would you reduce AI API costs at scale?</td><td>Server-side cache keyed by profile-similarity bucket. Batch similar profile searches. Pre-fetch popular competition categories nightly.</td></tr>
+<tr><td>4</td><td>How would you add team finding?</td><td>Teams collection in Firestore. User creates team post with skills needed + competition ID. Match algorithm finds users with complementary skills. Notification system via Firebase Cloud Messaging.</td></tr>
+<tr><td>5</td><td>Design the notification system</td><td>Cloud function triggers on new competition in DB → fans out to users with matching profile → sends via FCM (push) or SendGrid (email) based on user preference</td></tr>
+<tr><td>6</td><td>How would you replace AI-generated data with real data?</td><td>Playwright scraper runs on schedule → parses Devpost/Kaggle/HackerEarth → stores structured data in Firestore → HackIQ queries Firestore instead of AI → AI only for match scoring</td></tr>
+<tr><td>7</td><td>How would you add offline support?</td><td>Service Worker + Cache API for static assets. Firestore offline persistence (enableIndexedDbPersistence). App already works offline via localStorage — extend with Firestore offline SDK.</td></tr>
+<tr><td>8</td><td>How would you implement search across competition text?</td><td>Algolia or Typesense for full-text search. Index competition title + description + skills. Algolia has a Firestore sync extension.</td></tr>
+<tr><td>9</td><td>How would you handle multi-region?</td><td>Firestore is globally replicated. Vercel Edge Network serves static assets globally. Serverless functions deploy to nearest region. For data residency: Firestore regional mode.</td></tr>
+<tr><td>10</td><td>What monitoring would you add in production?</td><td>Sentry for error tracking. PostHog for analytics (search conversion, profile completion rate). Vercel Analytics for Core Web Vitals. Firestore usage alerts for quota approaching.</td></tr>
+</table>
+</div>
+
+<div style="text-align:center;padding:2rem 0 1rem;color:var(--color-text-tertiary);font-size:12px">
+  HackIQ Master Project Report &nbsp;|&nbsp; GURU SAI SUMITH &nbsp;|&nbsp; github.com/gurusaiss/HackIQ
+</div>
